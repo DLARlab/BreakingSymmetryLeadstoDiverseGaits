@@ -30,12 +30,12 @@ disp('...')
 
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 
 
-%%
+
 % initialize figure
 Roadmap = figure(1);
 % plot settings
@@ -102,7 +102,7 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 
@@ -154,7 +154,7 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 
@@ -206,7 +206,7 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 
@@ -273,7 +273,7 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 
@@ -325,7 +325,7 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 
@@ -377,7 +377,59 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
+fprintf('\n')
+disp('...')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% show solution branch for half-bounding with hind leg spread and extended suspension
+pause(2)
+figure(1)
+load('BD1_20_2_HE.mat')
+[gait,abbr, color_plot, linetype] = Gait_Identification(results);
+he = plot3(results(1,:),results(5,:),results(2,:),'LineWidth',3,'Color',color_plot,'LineStyle',linetype);
+pause(1)
+he_text = text(results(1,round(0.2*size(results,2))) - Roadmap.Children.XLim(2)*0.02, 0-Roadmap.Children.YLim(2)*0.35, 0, ...
+    abbr,'Color',color_plot,'FontSize',12,'FontWeight','bold');
+pause(1)
+
+fprintf('\n') 
+disp('Current gait of solution branch:')
+pause(2)
+disp(string(gait)+ ' gait')
+pause(2)
+disp("Abbreviate as '" + string(abbr) + "'")
+pause(2)
+disp('...')
+
+% show current solution on the plot
+X = results(1:22,round(0.55*size(results,2)));
+Para = results(23:end,round(0.3*size(results,2)));
+current_sol.XData = X(1);
+current_sol.YData = X(5); 
+current_sol.ZData = X(3); 
+pause(1)
+current_sol_text.Position =  [X(1), X(5)-Roadmap.Children.YLim(2)*0.12, X(3)];
+pause(1)
+
+
+pause(2)
+disp('Showing the animation of exemplary solution...')
+disp('...')
+
+pause(2)
+% simulation the system with initial condition
+[residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
+% show animation of the current solution
+Animation = 1; PO = 0; RecordKeyFrames = 0;
+ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+
+pause(2)
+disp('Animation Ends.')
+disp('...')
+
+disp('(Hit Enter to Move on)')
+%pause()
 fprintf('\n')
 disp('...')
 
@@ -443,7 +495,7 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 
@@ -496,7 +548,7 @@ disp('Animation Ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
-pause()
+%pause()
 fprintf('\n')
 disp('...')
 

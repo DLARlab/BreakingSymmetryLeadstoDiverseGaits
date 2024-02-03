@@ -52,7 +52,7 @@ classdef SLIP_Animation_Quad< OutputCLASS
     % Public methods:
     methods
         % Constructor:
-        function obj = SLIP_Animation_Quad(P,PlotPositions,options)
+        function obj = SLIP_Animation_Quad(P,PlotPositions,fig,options)
             obj.slowDown = 1;      % Run this in real time.
             obj.rate     = 0.05;   % with 25 fps
             obj.options  = options;
@@ -62,11 +62,11 @@ classdef SLIP_Animation_Quad< OutputCLASS
             l_leg  = P(16);
             
             % Initialize the graphics and set properties
-            obj.fig = figure(205); clf(obj.fig);
+            obj.fig = fig; clf(obj.fig);
             set(obj.fig, 'Name','SLIP model');  % Window title
             set(obj.fig, 'Color','w');          % Background color
             set(obj.fig, 'Renderer','OpenGL');
-            set(obj.fig, 'Position', PlotPositions(1,:));
+            set(obj.fig, 'Position', PlotPositions);
 
             % Initialize the axes and set properties: axis off
             obj.axes = axes(obj.fig);

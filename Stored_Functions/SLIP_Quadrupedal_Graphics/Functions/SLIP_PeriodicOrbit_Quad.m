@@ -10,16 +10,16 @@ classdef SLIP_PeriodicOrbit_Quad < OutputCLASS
         end
       methods
         % Constructor:
-        function obj = SLIP_PeriodicOrbit_Quad(Y,PlotPositions,color_plot)
+        function obj = SLIP_PeriodicOrbit_Quad(Y,PlotPositions,fig,color_plot)
             obj.slowDown = 1;      % Run this in real time.
             obj.rate     = 0.05;   % with 25 fps
             
-            obj.fig = figure(206);     clf(obj.fig);
+            obj.fig = fig;     clf(obj.fig);
             % Set window properties
             set(obj.fig, 'Name','Periodic Orbit');  % Window title
             set(obj.fig, 'Color','w');          % Background color
             set(obj.fig, 'Renderer','OpenGL');
-            set(obj.fig, 'position', PlotPositions(2,:));
+            set(obj.fig, 'position', PlotPositions);
             
             obj.axes = axes(obj.fig);  hold on;
             obj.axes.View = [45 45];

@@ -14,11 +14,13 @@ options = struct('AnimationMode',am);
 %% Plot Animation
     % Plot Animation
     if Animation == 1
-        graphOUTPUT = SLIP_Animation_Quad(P,PlotPositions,options);
+        figure(205)
+        graphOUTPUT = SLIP_Animation_Quad(P,PlotPositions(1,:),figure(205),options);
     end
     % Plot Periodic Orbit
     if PO == 1
-        poOUTPUT    = SLIP_PeriodicOrbit_Quad(Y,PlotPositions,color_plot);
+        figure(206)
+        poOUTPUT    = SLIP_PeriodicOrbit_Quad(Y,PlotPositions(2,:),figure(206),color_plot);
     end
     n = round(T(end)*100); % # of frames per step
     tFrame = linspace(0, T(end), n+1);
