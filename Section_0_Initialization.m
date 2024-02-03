@@ -3,8 +3,6 @@ close all
 clear
 clc
 
-
-fprintf('\n') 
 disp('...')
 pause(2)
 disp('Section 0 : Enviroment Initializtion')
