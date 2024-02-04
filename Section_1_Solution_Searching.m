@@ -1,10 +1,10 @@
-%% Section 1: exemplary solutions of walk, run, hop, skip and asymmetrical run
+%% Section 1: Example of Solution Searching Process
 % The code in this section is used to show the solution searching process of a simplified model.
 % The section consists of two parts:
 % Part 1: Searching for a single periodic solution
 % Part 2: Search for a branch of periodic solution
 
-% The readers can simply follow the instruction to finish this section.
+% Readers can simply follow the instructions to complete this section.
 
 close all
 clear
@@ -17,11 +17,11 @@ disp('Section 1: example of solution searching process')
 disp('...')
 
 pause(2)
-disp('The code in this section is used for the solution searching process for a simplified model')
+disp('This code demonstrates the solution searching process for a simplified model.')
 disp('...')
 
 pause(2)
-disp('The readers can simply follow the instructions showing in the terminal.')
+disp('Readers can simply follow the instructions shown in the terminal.')
 disp('...')
 
 
@@ -29,7 +29,7 @@ disp('...')
 % Part1: Searching for a single periodic solution
 pause(2)
 fprintf('\n') 
-disp('Execution starts.')
+disp('Execution begins. Follow the steps as outlined below:')
 
 pause(2)
 disp('...')
@@ -37,7 +37,7 @@ disp('Part 1: Searching for a single periodic solution')
 
 pause(3)
 disp('...')
-disp('Current Stage:  Giving a random guess of the states of the system... ')
+disp("Current Stage:  Giving a random guess for the system's states... ")
 disp('...')
 
 
@@ -73,7 +73,7 @@ disp('             1.0          % d(q_FR)/dt')
 disp('...')
 
 pause(2)
-disp('Detailed definition of system state can be found in: Stored_Functions\System_Dynamics\Quadrupedal_ZeroFun_v2.m.')
+disp('A detailed definition of the system state can be found in Stored_Functions\System_Dynamics\Quadrupedal_ZeroFun_v2.m.')
 
 disp('(Hit Enter to Move on)')
 pause()
@@ -102,7 +102,7 @@ disp('                  0.6         % t_FR_TD')
 disp('                  0.9         % t_FR_LO')
 disp('                  1.3 ];      % t_Apex(Stride Period)')
 fprintf('\n') 
-disp('Event timing variables of the solution.') 
+disp('Displaying the event timing variables for the solution:') 
 fprintf('\n')
 
 pause(2)
@@ -128,13 +128,13 @@ Para = [10                  % k: linear leg stiffness of legs
 pause(2)
 disp('Code Description:')
 fprintf('\n') 
-disp('The dynamic funtion Quadrupedal_ZeroFun_v2.m will integrate the system will a given intial condition and timing variables.')
+disp('The dynamic function Quadrupedal_ZeroFun_v2.m integrates the system with given initial conditions and timing variables.')
 pause(2)
 fprintf('\n') 
 disp("While evoluting, the function will also measure the 'symmetry error', which is supposed to be zero if the symmetry is retained. ")
 pause(2)
 fprintf('\n') 
-disp("The solution searching is identical to solve for the zero problem for the 'symmetry error'. ")
+disp("The solution search is equivalent to solving the zero problem for 'symmetry error'. ")
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -187,7 +187,7 @@ disp('Gait identified as:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -262,7 +262,7 @@ disp('...')
 % give a random prediction for the new initial guess
 pause(2)
 X2_predict = X1_real_solution + 0.05*(rand-0.5);
-disp('Giving a initial guess of the second solution.')
+disp('Providing an initial guess for the second solution.')
 pause(2)
 disp('...')
 disp('X2_predict = X_real_solution + 0.05*(rand-0.5)')
@@ -284,7 +284,7 @@ fprintf('\n')
 disp('Running the numerical continuation algorithm to search for the entire solution branch')
 pause(2)
 disp('...')
-disp('The demo algorithm will terminal after finding 20 solutions.')
+disp('The demo algorithm will terminate after finding 20 solutions.')
 pause(2)
 disp('...')
 disp('To search for the entire branch, please change the number of iterations in NumericalContinuation1D_Quadruped_Demo.m')
@@ -304,7 +304,7 @@ radius = 0.05;
 
 pause(2)
 disp('...')
-disp('Demo algorithm terminaled.')
+disp('Demo algorithm terminated.')
 disp('...')
 fprintf('\n') 
 
@@ -331,4 +331,4 @@ disp('...')
 
 
 pause(2)
-disp("Please open 'Section_2_Exemplary_Solutions.m'.")
+disp("Please proceed by opening 'Section_2_Exemplary_Solutions.m'.")

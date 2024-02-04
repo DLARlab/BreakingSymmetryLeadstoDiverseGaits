@@ -1,10 +1,10 @@
-%% Section 2: exemplary solutions of pronking, bounding, half-bounding and galloping gaits
-% The code in this section is used to show the solution multiple gaits.
+%% Section 2: Exemplary Solutions for Pronking, Bounding, Half-Bounding, and Galloping Gaits
+% This code illustrates solutions for multiple gaits.
 % The code will show how Fig.3, Fig.5, Fig.6 are generated.
 % Part 1: Searching for a single periodic solution
 % Part 2: Search for a branch of periodic solution
 
-% The readers can simply follow the instruction to finish this section.
+% Readers can simply follow the instructions to complete this section.
 
 close all
 clear
@@ -13,11 +13,11 @@ clc
 
 disp('...')
 pause(2)
-disp('Section 2: exemplary solutions illustration')
+disp('Section 2: Illustration of Exemplary Solutions')
 disp('...')
 
 pause(2)
-disp('The code in this section is used for animating different types of asymmetrical gaits mentioned in the paper.')
+disp('This code is for animating the different types of asymmetrical gaits mentioned in the paper.')
 disp('...')
 
 pause(2)
@@ -25,7 +25,7 @@ disp('And replicate Fig.3, Fig.5, Fig.6.')
 disp('...')
 
 pause(2)
-disp('The readers can simply follow the instructions showing in the terminal.')
+disp('Readers can simply follow the instructions to complete this section.')
 disp('...')
 
 
@@ -67,11 +67,11 @@ pk_text = text(results(1,round(0.05*size(results,2))), results(3,round(0.05*size
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -98,7 +98,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -119,11 +119,11 @@ bg_text = text(results(1,round(0.2*size(results,2))) - Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -150,7 +150,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -171,11 +171,11 @@ be_text = text(results(1,round(0.2*size(results,2))) - Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -202,7 +202,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -238,11 +238,11 @@ fg_text = text(results(1,round(0.3*size(results,2))) - Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -269,7 +269,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -290,11 +290,11 @@ hg_text = text(results(1,round(0.2*size(results,2))) - Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -321,7 +321,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -342,11 +342,11 @@ fe_text = text(results(1,round(0.2*size(results,2))) - Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -373,7 +373,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -394,11 +394,11 @@ he_text = text(results(1,round(0.2*size(results,2))) - Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -425,7 +425,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -460,11 +460,11 @@ gg_text = text(results(1,round(0.5*size(results,2))) + Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -491,7 +491,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -513,11 +513,11 @@ ge_text = text(results(1,round(0.5*size(results,2))) + Roadmap.Children.XLim(2)*
 pause(1)
 
 fprintf('\n') 
-disp('Current gait of solution branch:')
+disp('Current Gait of the Solution Branch:')
 pause(2)
 disp(string(gait)+ ' gait')
 pause(2)
-disp("Abbreviate as '" + string(abbr) + "'")
+disp("Abbreviated as '" + string(abbr) + "'")
 pause(2)
 disp('...')
 
@@ -544,7 +544,7 @@ Animation = 1; PO = 0; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('Animation Ends.')
+disp('The animation ends.')
 disp('...')
 
 disp('(Hit Enter to Move on)')
@@ -562,4 +562,4 @@ fprintf('\n')
 
 
 pause(2)
-disp("Please open 'Section_3_Symmetry_Illustrations.m'.")
+disp("Please proceed by opening 'Section_3_Symmetry_Illustrations.m'.")

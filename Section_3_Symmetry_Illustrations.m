@@ -1,7 +1,7 @@
-%% Section 3: Illstration of temporal symmetry, time-reversal symmetry, and morphological symmetry
-% The code in this section is used to illustrate the symmetries mentioned in the paper.
+%% Section 3: Illustration of Temporal Symmetry, Time-Reversal Symmetry, and Morphological Symmetry
+% This code illustrates the symmetries mentioned in the paper.
 
-% The readers can simply follow the instruction to finish this section.
+% Readers can simply follow the instructions to complete this section.
 
 close all
 clear
@@ -37,10 +37,10 @@ pause(2)
 disp('The solution is symmetric under the evolution after a certain time T.')
 disp('...')
 pause(2)
-disp('Meaning the solution will return to itself after simulate the system for time T.')
+disp('This means the solution will return to itself after simulating the system for time T.')
 disp('...')
 pause(2)
-disp('This property is retained no matter where the evolution start along the periodic orbit.')
+disp('This property is retained no matter where the evolution starts along the periodic orbit.')
 disp('...')
 fprintf('\n')
 
@@ -128,13 +128,13 @@ clear
 disp('Part 2: Time-reversal symmetry')
 disp('...')
 pause(2)
-disp('The solution is still temporal-symmetric when the system velocities are reversed and configuration are unchanged.')
+disp("The solution remains temporally symmetric when the system's velocities are reversed and the configuration is unchanged.")
 disp('...')
 pause(2)
 disp('Meaning the solution will also return to itself after simulate the system for the same time period T.')
 disp('...')
 pause(2)
-disp('This property is retained no matter where the evolution start along the periodic orbit.')
+disp('This property is retained no matter where the evolution starts along the periodic orbit.')
 disp('...')
 fprintf('\n')
 
@@ -229,7 +229,7 @@ fprintf('\n')
 disp('...')
 
 pause(2)
-disp('The reading can compare the key frames to validate the time-reversal symmtry.')
+disp('The reader can compare the key frames to validate the time-reversal symmetry.')
 disp('...')
 pause(2)
 disp('The time sequence of the oringinal solution will be record in a time-flipped fashion.')
@@ -251,13 +251,13 @@ clear
 disp('Part 3: Morphological symmetry')
 disp('...')
 pause(2)
-disp('The solution is symmetric under the permutation on the states of the legs.')
+disp('The solution is symmetric under the permutation of the states of the legs.')
 disp('...')
 pause(2)
 disp('The trajectories will be identical to the trajectories before permutation.')
 disp('...')
 pause(2)
-disp('This property is retained no matter where the evolution start along the periodic orbit.')
+disp('This property is retained no matter where the evolution starts along the periodic orbit.')
 disp('...')
 fprintf('\n')
 
@@ -359,4 +359,4 @@ fprintf('\n')
 
 
 pause(2)
-disp("Demo code complete! Thanks for watching!")
+disp("Demo code complete! Thank you for following along!")
