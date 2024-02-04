@@ -166,15 +166,13 @@ function BranchPlot = BranchPlotSearching(results)
         PlotSize = [(2.5/10)*ScreenSize(3)   (12/16)*(2.5/10)*ScreenSize(3)
                  ScreenSize(3)/5        (12/16)*ScreenSize(3)/5     ];
         PlotPositions = [(1/2)*ScreenSize(3)-(2/2 + 1/10)*PlotSize(1,1)  (0.5/10)*ScreenSize(4)+PlotSize(2,2)  PlotSize(1,1)  PlotSize(1,2)
-                      (1/2)*ScreenSize(3)-(0/2 - 1/10)*PlotSize(1,1)  (0.5/10)*ScreenSize(4)+PlotSize(2,2)  PlotSize(1,1)  PlotSize(1,2)
-                      (1/2)*ScreenSize(3)-(3/2)*PlotSize(2,1)         (0.5/10)*ScreenSize(4)                PlotSize(2,1)  PlotSize(2,2)
-                      (1/2)*ScreenSize(3)-(1/2)*PlotSize(2,1)         (0.5/10)*ScreenSize(4)                PlotSize(2,1)  PlotSize(2,2)
-                      (1/2)*ScreenSize(3)+(1/2)*PlotSize(2,1)         (0.5/10)*ScreenSize(4)                PlotSize(2,1)  PlotSize(2,2)];
+                      (1/2)*ScreenSize(3)-(0/2 - 1/10)*PlotSize(1,1)  (0.5/10)*ScreenSize(4)+PlotSize(2,2)  PlotSize(1,1)  PlotSize(1,2)];
         % Simulate the sytem
         
         [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(results(1:22,end),results(23:end,end));
         [gait,abbr, color_plot, linetype] = Gait_Identification(results(1:22,end));
-        BranchPlot =  SLIP_PeriodicOrbit_Quad(Y,PlotPositions,color_plot);
+        figure(206)
+        BranchPlot =  SLIP_PeriodicOrbit_Quad(Y,PlotPositions(2,:),figure(206),color_plot);
         
         % Update the current state on the orbit
         n = round(T(end)*100); % # of frames per step
