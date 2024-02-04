@@ -196,7 +196,7 @@ pause(3)
 disp('Showing the animation of current solution.')
 disp('...')
 % simulation the system with initial condition
-[residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
+[residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X1_real_solution,Para);
 % show animation of the current solution
 Animation = 1; PO = 1; RecordKeyFrames = 0;
 ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
