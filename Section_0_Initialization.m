@@ -5,7 +5,6 @@ clear
 clc
 
 disp('...')
-pause(2)
 disp('Section 0 : Enviroment Initializtion')
 disp('...')
 
@@ -25,7 +24,6 @@ addpath(genpath(current_path+slash+'Section2_symmetry_illustrations'))
 addpath(genpath(current_path+slash+'Section3_solution_searching'))
 
 addpath(genpath(current_path+slash+'Stored_Functions')) 
-pause(2)
 disp('Section 0 complete')
 disp('...')
 

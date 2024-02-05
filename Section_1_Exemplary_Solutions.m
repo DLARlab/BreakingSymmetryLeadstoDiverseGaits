@@ -66,11 +66,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -118,11 +118,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -170,11 +170,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -237,11 +237,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -289,11 +289,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -341,11 +341,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -393,11 +393,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -459,11 +459,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
@@ -512,11 +512,11 @@ pause(1)
 
 fprintf('\n') 
 disp('Current Gait of the Solution Branch:')
-pause(2)
+% pause(2)
 disp(string(gait)+ ' gait')
-pause(2)
+% pause(2)
 disp("Abbreviated as '" + string(abbr) + "'")
-pause(2)
+% pause(2)
 disp('...')
 
 % show current solution on the plot
