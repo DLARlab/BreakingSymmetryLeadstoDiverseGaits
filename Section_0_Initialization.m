@@ -1,4 +1,5 @@
 %% Section 0: initialization
+% Initialization of the code, please hit the 'Run' button.
 close all
 clear
 clc
@@ -19,14 +20,14 @@ else
 end
 disp('Adding project path...')
 disp('...')
-addpath(genpath(current_path+slash+'Section1_solution_searching'))
-addpath(genpath(current_path+slash+'Section2_exemplary_solutions'))
-addpath(genpath(current_path+slash+'Section3_symmetry_illustrations'))
+addpath(genpath(current_path+slash+'Section1_exemplary_solutions'))
+addpath(genpath(current_path+slash+'Section2_symmetry_illustrations'))
+addpath(genpath(current_path+slash+'Section3_solution_searching'))
 
 addpath(genpath(current_path+slash+'Stored_Functions')) 
 pause(2)
-disp('Section complete')
+disp('Section 0 complete')
 disp('...')
 
 pause(2)
-disp("Please open 'Section_1_Solution_Searching.m'.")
+disp("Please open 'Section_1_Exemplary_Solutions.m' and simply hit the 'Run' button.")

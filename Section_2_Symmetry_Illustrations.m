@@ -1,5 +1,9 @@
-%% Section 3: Illustration of Temporal Symmetry, Time-Reversal Symmetry, and Morphological Symmetry
+%% Section 2: Illustration of Temporal Symmetry, Time-Reversal Symmetry, and Morphological Symmetry
 % This code illustrates the symmetries mentioned in the paper.
+% The code consists of three parts:
+% Part 1: Temporal symmetry
+% Part 2: Time-reversal symmetry
+% Part 3: Morphological symmetry
 
 % Readers can simply follow the instructions to complete this section.
 
@@ -10,7 +14,7 @@ clc
 
 disp('...')
 pause(2)
-disp('Section 3: illustration of symmetries')
+disp('Section 2: illustration of symmetries')
 disp('...')
 
 pause(2)
@@ -159,7 +163,7 @@ disp('X_origin(t+T) - X_origin(t) = ' + string(norm(residual_origin)))
 disp('...')
 
 
-% pick another point on the periodic orbit
+
 pause(2)
 X_permutation = X_origin;
 % reverse all the velocities but leave the configuration unchanges
@@ -185,7 +189,7 @@ disp('               [  0  0  0  0  0  0  0  0  0  0  0  0 -1  ]  [ d(q_FR)/dt  
 disp('...')
 pause(5)
 
-% simulation the system from another point on the periodic orbit
+% simulation the system with reversed velocities and the same configuration
 pause(2)
 [residual_mapped,T_mapped,Y_mapped,P_mapped,GRF_mapped,Y_EVENT_mapped] = Quadrupedal_ZeroFun_v2(X_permutation,Para);
 residual_mapped(end) = []; % remove the residual for Poincare section
@@ -282,12 +286,12 @@ disp('X_origin(t+T) - X_origin(t) = ' + string(norm(residual_origin)))
 disp('...')
 
 
-% pick another point on the periodic orbit
+
 pause(2)
 X_permutation = X_origin;
-% reverse all the velocities but leave the configuration unchanges
+% permutate the states of the legs
 X_permutation([8 9 12 13 16 17 20 21])  = X_origin([12 13 8 9 20 21 16 17]);
-disp('Reversing the velocities of the solution...')
+disp('Permutating the states of the legs...')
 disp('...')
 pause(2)
 disp('                      [  1  0  0  0  0  0  0  0  0  0  0  0  0  ]  [ d(q_x)/dt     ]')
@@ -306,7 +310,7 @@ disp('                      [  0  0  0  0  0  0  0  0  1  0  0  0  0  ]  [ d(q_F
 disp('...')
 pause(5)
 
-% simulation the system from another point on the periodic orbit
+% simulation the system with permutated leg states
 pause(2)
 [residual_mapped,T_mapped,Y_mapped,P_mapped,GRF_mapped,Y_EVENT_mapped] = Quadrupedal_ZeroFun_v2(X_permutation,Para);
 residual_mapped(end) = []; % remove the residual for Poincare section
@@ -353,10 +357,10 @@ disp('...')
 pause(2)
 fprintf('\n') 
 fprintf('\n')
-disp('Section 3 complete.')
+disp('Section 2 complete.')
 disp('...')
 fprintf('\n') 
 
 
 pause(2)
-disp("Demo code complete! Thank you for following along!")
+disp("Please proceed by opening 'Section_3_Solution_Searching.m' and simply hit the 'Run' button.")
