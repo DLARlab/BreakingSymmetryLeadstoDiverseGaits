@@ -11,9 +11,21 @@ close all
 clear
 clc
 
+restoredefaultpath
+current_path = matlab.desktop.editor.getActiveFilename;
+current_path = current_path(1:strfind(current_path,'BreakingSymmetryLeadstoDiverseGaits')+35); 
 
 disp('...')
-pause(2)
+disp('Adding project path...')
+disp('...')
+addpath(genpath(string(current_path)+'Section1_exemplary_solutions'))
+addpath(genpath(string(current_path)+'Section2_symmetry_illustrations'))
+addpath(genpath(string(current_path)+'Section3_solution_searching'))
+addpath(genpath(string(current_path)+'Stored_Functions'))
+disp('Path Initialized.')
+disp('...')
+
+disp('...')
 disp('Section 2: illustration of symmetries')
 disp('...')
 
@@ -27,10 +39,6 @@ disp('The readers can simply follow the instructions showing in the terminal.')
 disp('...')
 
 
-disp('(Hit Enter to Move on)')
-pause()
-fprintf('\n')
-disp('...')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Part 1: illustration of temporal symmetry
@@ -106,7 +114,7 @@ pause(2)
 ShowTrajectory_Symmetry_Quadruped(T,Y_origin,GRF_origin,Y_mapped,GRF_mapped)
 disp('Plotting the trajectories of the solution before and after mapping.')
 disp('...')
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 close all
 fprintf('\n')
@@ -117,7 +125,7 @@ RecordKeyFrames = 0;
 ShowAnimation_Symmetry_Quadruped(T,Y_origin,P_origin,Y_mapped,P_mapped,color_plot,RecordKeyFrames)
 disp('Plotting the animations of the solution before and after mapping.')
 disp('...')
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 close all
 fprintf('\n')
@@ -215,7 +223,7 @@ pause(2)
 ShowTrajectory_Symmetry_Quadruped(T,Y_origin,GRF_origin,Y_mapped,GRF_mapped)
 disp('Plotting the trajectories of the solution before and after mapping.')
 disp('...')
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 close all
 fprintf('\n')
@@ -226,24 +234,28 @@ RecordKeyFrames = 0;
 ShowAnimation_Symmetry_Quadruped(T,Y_origin,P_origin,Y_mapped,P_mapped,color_plot,RecordKeyFrames)
 disp('Plotting the animations of the solution before and after mapping.')
 disp('...')
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 close all
 fprintf('\n')
 disp('...')
 
 pause(2)
-disp('The reader can compare the key frames to validate the time-reversal symmetry.')
+disp('The reader can also compare the key frames to validate the time-reversal symmetry.')
 disp('...')
 pause(2)
-disp('The time sequence of the oringinal solution will be record in a time-flipped fashion.')
+disp('The time sequence of both the oringinal solution and the time-reversed solution will be recorded.')
 disp('...')
 pause(2)
-disp("To do so, please simply change 'RecordKeyFrames = 1' in line 222 and rerun line 223.")
+disp("To do so, please enter 'Y' in the terminal, or hit any button to move on.")
 disp('...')
 
-disp('(Hit Enter to Move on)')
-pause()
+prompt = 'Recode key frames? Yes[Y]/No(press any button).';
+input = input(prompt,"s");
+if string(input)=='Y'
+    RecordKeyFrames = 1;
+    ShowAnimation_Symmetry_Quadruped(T,Y_origin,P_origin,Y_mapped,P_mapped,color_plot,RecordKeyFrames)
+end
 fprintf('\n')
 disp('...')
 
@@ -336,7 +348,7 @@ pause(2)
 ShowTrajectory_Symmetry_Quadruped(T,Y_origin,GRF_origin,Y_mapped,GRF_mapped)
 disp('Plotting the trajectories of the solution before and after mapping.')
 disp('...')
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 close all
 fprintf('\n')
@@ -347,7 +359,7 @@ RecordKeyFrames = 0;
 ShowAnimation_Symmetry_Quadruped(T,Y_origin,P_origin,Y_mapped,P_mapped,color_plot,RecordKeyFrames)
 disp('Plotting the animations of the solution before and after mapping.')
 disp('...')
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 close all
 fprintf('\n')
@@ -360,7 +372,3 @@ fprintf('\n')
 disp('Section 2 complete.')
 disp('...')
 fprintf('\n') 
-
-
-pause(2)
-disp("Please proceed by opening 'Section_3_Solution_Searching.m' and simply hit the 'Run' button.")

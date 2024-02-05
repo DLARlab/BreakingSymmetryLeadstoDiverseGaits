@@ -1,4 +1,4 @@
-%% Section 1: Example of Solution Searching Process
+%% Section 3: Example of Solution Searching Process
 % The code in this section is used to show the solution searching process of a simplified model.
 % The section consists of two parts:
 % Part 1: Searching for a single periodic solution
@@ -9,6 +9,20 @@
 close all
 clear
 clc
+
+restoredefaultpath
+current_path = matlab.desktop.editor.getActiveFilename;
+current_path = current_path(1:strfind(current_path,'BreakingSymmetryLeadstoDiverseGaits')+35); 
+
+disp('...')
+disp('Adding project path...')
+disp('...')
+addpath(genpath(string(current_path)+'Section1_exemplary_solutions'))
+addpath(genpath(string(current_path)+'Section2_symmetry_illustrations'))
+addpath(genpath(string(current_path)+'Section3_solution_searching'))
+addpath(genpath(string(current_path)+'Stored_Functions'))
+disp('Path Initialized.')
+disp('...')
 
 fprintf('\n') 
 disp('...')
@@ -72,14 +86,6 @@ disp('             0            % q_FR')
 disp('             1.0          % d(q_FR)/dt')
 disp('...')
 
-pause(2)
-disp('A detailed definition of the system state can be found in Stored_Functions\System_Dynamics\Quadrupedal_ZeroFun_v2.m.')
-
-disp('(Hit Enter to Move on)')
-pause()
-fprintf('\n')
-disp('...')  
-
 % Giving an initial guess of the eventing timings
 pause(2) 
 Timing_initial = [0.6         % t_BL_TD
@@ -91,7 +97,9 @@ Timing_initial = [0.6         % t_BL_TD
                   0.6         % t_FR_TD
                   0.9         % t_FR_LO
                   1.3 ];      % t_Apex(Stride Period)
-                              
+fprintf('\n') 
+disp('Giving a random guess of the event timings for the solution:') 
+fprintf('\n')                              
 disp('Timing_initial = [0.6         % t_BL_TD')
 disp('                  0.9         % t_BL_LO')
 disp('                  0.6         % t_FL_TD  ')
@@ -101,16 +109,18 @@ disp('                  0.9         % t_BR_LO')
 disp('                  0.6         % t_FR_TD')
 disp('                  0.9         % t_FR_LO')
 disp('                  1.3 ];      % t_Apex(Stride Period)')
-fprintf('\n') 
-disp('Displaying the event timing variables for the solution:') 
-fprintf('\n')
+disp('...')
 
 pause(2)
 solution_initial = [X_initial;Timing_initial];
-disp('...')  
 disp('solution_initial = [X_initial;Timing_initial]')
+disp('...') 
 
-disp('(Hit Enter to Move on)')
+pause(2)
+disp('A detailed definition of the solution can be found in Stored_Functions\System_Dynamics\Quadrupedal_ZeroFun_v2.m.')
+disp('...')
+
+disp('(Hit Any Button to Move on)')
 pause()
 fprintf('\n') 
 disp('...')
@@ -136,11 +146,7 @@ pause(2)
 fprintf('\n') 
 disp("The solution search is equivalent to solving the zero problem for 'symmetry error'. ")
 disp('...')
-
-disp('(Hit Enter to Move on)')
-pause()
-fprintf('\n')
-disp('...')
+fprintf('\n') 
 
 pause(2)
 disp('Example:')
@@ -155,10 +161,6 @@ disp('The zero problem will be solved using fsolve.m from MATLAB.' )
 disp('...')
 fprintf('\n')
 
-disp('(Hit Enter to Move on)')
-pause()
-fprintf('\n') 
-disp('...')
 
 pause(2)
 disp('Starting solving the zero problem.')
@@ -195,20 +197,24 @@ disp('...')
 pause(3)
 disp('Showing the animation of current solution.')
 disp('...')
+disp('Please do not change the position of the animation window.')
+disp('...')
 % simulation the system with initial condition
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X1_real_solution,Para);
 % show animation of the current solution
 Animation = 1; PO = 1; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 
 
-pause(5)
+disp('(Hit Any Button to Move on)')
+pause()
+close all
+disp('...')
 disp('Showing the trajectories of current solution.')
 disp('...')
-fprintf('\n')
 % show trajectories of the current solution
-ShowTrajectory_Quadruped(T,Y,GRF)
+ShowTrajectory_Quadruped_Demo(T,Y,GRF)
 
 
 pause(5)
@@ -216,7 +222,7 @@ disp('Part 1 complete.')
 disp('...')
 fprintf('\n') 
 
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 close all
 fprintf('\n')
@@ -237,10 +243,10 @@ fprintf('\n')
 disp('This part shows the solution searching process for a entire branch using NumericalContinuation1D_Quadruped_Demo.m. ')
 pause(2)
 fprintf('\n') 
-disp('The algorithm implement a prediction-corrector method to search for new solutions.' )
+disp('The algorithm implements a prediction-corrector method to search for the solution branch.' )
 pause(2)
 fprintf('\n') 
-disp('To start with, the algorithm requires two solutions X1 X2 as inputs, and will predict the new solution by the difference between the two solutions:')
+disp('To start with, the algorithm requires two solutions X1 X2 as inputs, and will predict the new solution using the difference between the two solutions:')
 pause(2)
 fprintf('\n') 
 disp('X_predict = X2 + (X2 - X1)')
@@ -254,7 +260,7 @@ disp('...')
 fprintf('\n') 
 
 
-disp('(Hit Enter to Move on)')
+disp('(Hit Any Button to Move on)')
 pause()
 fprintf('\n') 
 disp('...')
@@ -284,7 +290,7 @@ fprintf('\n')
 disp('Running the numerical continuation algorithm to search for the entire solution branch')
 pause(2)
 disp('...')
-disp('The demo algorithm will terminate after finding 20 solutions.')
+disp('The demo algorithm will terminate after finding 10 solutions.')
 pause(2)
 disp('...')
 disp('To search for the entire branch, please change the number of iterations in NumericalContinuation1D_Quadruped_Demo.m')

@@ -8,9 +8,21 @@ close all
 clear
 clc
 
+restoredefaultpath
+current_path = matlab.desktop.editor.getActiveFilename;
+current_path = current_path(1:strfind(current_path,'BreakingSymmetryLeadstoDiverseGaits')+35); 
 
 disp('...')
-pause(2)
+disp('Adding project path...')
+disp('...')
+addpath(genpath(string(current_path)+'Section1_exemplary_solutions'))
+addpath(genpath(string(current_path)+'Section2_symmetry_illustrations'))
+addpath(genpath(string(current_path)+'Section3_solution_searching'))
+addpath(genpath(string(current_path)+'Stored_Functions'))
+disp('Path Initialized.')
+disp('...')
+
+disp('...')
 disp('Section 1: Illustration of Exemplary Solutions')
 disp('...')
 
@@ -27,7 +39,7 @@ disp('Readers can simply follow the instructions to complete this section.')
 disp('...')
 
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
@@ -81,28 +93,37 @@ current_sol = scatter3(X(1),X(3),X(5),120,'filled','Parent',Roadmap.Children,...
 pause(1)
 current_sol_text =  text(X(1), X(3)-Roadmap.Children.YLim(2)*0.1, X(5),...
                      'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
-pause(1)
-
-
 pause(2)
+
+
+% pause(2)
 disp('Showing the animation of exemplary solution...')
 disp('...')
+disp('Please do not change the position of the animation window.')
+disp('...')
 
-pause(2)
+
 % simulation the system with initial condition
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
 disp('The animation ends.')
 disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for bounding with gathered suspension 
@@ -128,33 +149,43 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,round(0.3*size(results,2)));
 Para = results(23:end,round(0.3*size(results,2)));
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)+Roadmap.Children.YLim(2)*0.13, X(3)];
+current_sol_text =  text(X(1), X(5)+Roadmap.Children.YLim(2)*0.13, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+% pause(2)
 disp('Showing the animation of exemplary solution...')
 disp('...')
+disp('Please do not change the position of the animation window.')
+disp('...')
 
-pause(2)
+
 % simulation the system with initial condition
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for bounding with Extended suspension 
@@ -180,33 +211,43 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,round(0.3*size(results,2)));
 Para = results(23:end,round(0.3*size(results,2)));
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)-Roadmap.Children.YLim(2)*0.13, X(3)];
+current_sol_text =  text(X(1), X(5)-Roadmap.Children.YLim(2)*0.13, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+% pause(2)
 disp('Showing the animation of exemplary solution...')
 disp('...')
+disp('Please do not change the position of the animation window.')
+disp('...')
 
-pause(2)
+
 % simulation the system with initial condition
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for half-bounding with front leg spread and gathered suspension
@@ -247,16 +288,19 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,round(0.6*size(results,2)));
 Para = results(23:end,round(0.3*size(results,2)));
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)-Roadmap.Children.YLim(2)*0.1, X(3)];
+current_sol_text =  text(X(1), X(5)-Roadmap.Children.YLim(2)*0.1, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+
 disp('Showing the animation of exemplary solution...')
+disp('...')
+disp('Please do not change the position of the animation window.')
 disp('...')
 
 pause(2)
@@ -264,16 +308,23 @@ pause(2)
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for half-bounding with hind leg spread and gathered suspension
@@ -299,16 +350,20 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,round(0.3*size(results,2)));
 Para = results(23:end,round(0.3*size(results,2)));
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)-Roadmap.Children.YLim(2)*0.1, X(3)];
+current_sol_text =  text(X(1), X(5)-Roadmap.Children.YLim(2)*0.13, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+
+
 disp('Showing the animation of exemplary solution...')
+disp('...')
+disp('Please do not change the position of the animation window.')
 disp('...')
 
 pause(2)
@@ -316,16 +371,23 @@ pause(2)
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for half-bounding with front leg spread and extended suspension
@@ -351,16 +413,20 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,round(0.55*size(results,2)));
 Para = results(23:end,round(0.3*size(results,2)));
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)-Roadmap.Children.YLim(2)*0.12, X(3)];
+current_sol_text =  text(X(1), X(5)-Roadmap.Children.YLim(2)*0.12, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+
+
 disp('Showing the animation of exemplary solution...')
+disp('...')
+disp('Please do not change the position of the animation window.')
 disp('...')
 
 pause(2)
@@ -368,16 +434,23 @@ pause(2)
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for half-bounding with hind leg spread and extended suspension
@@ -387,7 +460,7 @@ load('BD1_20_2_HE.mat')
 [gait,abbr, color_plot, linetype] = Gait_Identification(results);
 he = plot3(results(1,:),results(5,:),results(2,:),'LineWidth',3,'Color',color_plot,'LineStyle',linetype);
 pause(1)
-he_text = text(results(1,round(0.2*size(results,2))) - Roadmap.Children.XLim(2)*0.02, 0-Roadmap.Children.YLim(2)*0.35, 0, ...
+he_text = text(results(1,round(0.2*size(results,2))) + Roadmap.Children.XLim(2)*0.02, 0-Roadmap.Children.YLim(2)*0.35, 0, ...
     abbr,'Color',color_plot,'FontSize',12,'FontWeight','bold');
 pause(1)
 
@@ -403,33 +476,44 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,round(0.55*size(results,2)));
 Para = results(23:end,round(0.3*size(results,2)));
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)-Roadmap.Children.YLim(2)*0.12, X(3)];
+current_sol_text =  text(X(1), X(5)-Roadmap.Children.YLim(2)*0.13, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+
+% pause(2)
 disp('Showing the animation of exemplary solution...')
 disp('...')
+disp('Please do not change the position of the animation window.')
+disp('...')
 
-pause(2)
+
 % simulation the system with initial condition
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for galloping with gathered suspension
@@ -469,33 +553,44 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,96);
 Para = results(23:end,96);
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)+Roadmap.Children.YLim(2)*0.2, X(3)];
+current_sol_text =  text(X(1), X(5)+Roadmap.Children.YLim(2)*0.20, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+
+% pause(2)
 disp('Showing the animation of exemplary solution...')
 disp('...')
+disp('Please do not change the position of the animation window.')
+disp('...')
 
-pause(2)
+
 % simulation the system with initial condition
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
+
+% Reset the position for the point(current solution)
+delete(current_sol)
+delete(current_sol_text)
+close(figure(205))
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % show solution branch for galloping with gathered suspension
@@ -522,30 +617,34 @@ disp('...')
 % show current solution on the plot
 X = results(1:22,115);
 Para = results(23:end,115);
-current_sol.XData = X(1);
-current_sol.YData = X(5); 
-current_sol.ZData = X(3); 
+
+current_sol = scatter3(X(1),X(5),X(3),120,'filled','Parent',Roadmap.Children,...
+                                           'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[0 0 0]);
 pause(1)
-current_sol_text.Position =  [X(1), X(5)-Roadmap.Children.YLim(2)*0.1, X(3)];
+current_sol_text =  text(X(1), X(5)-Roadmap.Children.YLim(2)*0.1, X(3),...
+                     'Current Solution','HorizontalAlignment','center','Parent',Roadmap.Children,'FontSize',8);
 pause(1)
 
 
-pause(2)
+
+% pause(2)
 disp('Showing the animation of exemplary solution...')
 disp('...')
+disp('Please do not change the position of the animation window.')
+disp('...')
 
-pause(2)
+
 % simulation the system with initial condition
 [residual,T,Y,P,GRF,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para);
 % show animation of the current solution
 Animation = 1; PO = 0; RecordKeyFrames = 0;
-ShowAnimation_Quadruped(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
+ShowAnimation_Quadruped_Demo(T,Y,P,color_plot,Animation,PO,RecordKeyFrames)
 
 pause(2)
-disp('The animation ends.')
-disp('...')
+% disp('The animation ends.')
+% disp('...')
 
-%disp('(Hit Enter to Move on)')
+%disp('(Hit Any Button to Move on)')
 %pause()
 fprintf('\n')
 disp('...')
@@ -558,6 +657,3 @@ disp('Section 1 complete.')
 disp('...')
 fprintf('\n') 
 
-
-pause(2)
-disp("Please proceed by opening 'Section_2_Symmetry_Illustrations.m' and simply hit the 'Run' button.")

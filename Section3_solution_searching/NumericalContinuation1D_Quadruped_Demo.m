@@ -25,7 +25,7 @@ function [results,flag] = UniDirectionSearch(results, Radius, numOPTS, SaveTempS
     x_Current = x_Last;
     Para = results(23:end,1);
     ns = size(results,2);
-for k = 1:20
+for k = 1:10
        % Set special options for the stiff range
 %        if x_Current(1)>15
 %            OPTS = optimset('Algorithm','levenberg-marquardt',... 

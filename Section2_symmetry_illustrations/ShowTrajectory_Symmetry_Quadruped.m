@@ -2,7 +2,7 @@ function  ShowTrajectory_Symmetry_Quadruped(T,Y_origin,GRF_origin,Y_mapped,GRF_m
 
 % Get screen setting: self tunning plot positions
 ScreenSize = get(0,'ScreenSize');
-PlotSize = [(2.5/10)*ScreenSize(3)   (12/16)*(2.5/10)*ScreenSize(3)];
+PlotSize = [(2.0/10)*ScreenSize(3)   (12/16)*(2.0/10)*ScreenSize(3)];
 PlotPositions = [(1/2)*ScreenSize(3)-(3/2)*PlotSize(1,1)         (2.0/10)*ScreenSize(4)+PlotSize(1,2)                PlotSize(1,1)  PlotSize(1,2)
                  (1/2)*ScreenSize(3)-(1/2)*PlotSize(1,1)         (2.0/10)*ScreenSize(4)+PlotSize(1,2)                PlotSize(1,1)  PlotSize(1,2)
                  (1/2)*ScreenSize(3)+(1/2)*PlotSize(1,1)         (2.0/10)*ScreenSize(4)+PlotSize(1,2)                PlotSize(1,1)  PlotSize(1,2)
