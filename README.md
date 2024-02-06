@@ -1,9 +1,4 @@
 # BreakingSymmetryLeadstoDiverseGaits
-Exemplary Code for RAL submission
-
-The code requires a MATLAB version later than MATLAB2019b.
-Please open 'Section_0_Initialization.m' and hit the 'Run' button!
-
 
 ## Overview
 
@@ -57,3 +52,12 @@ If you use this work in an academic context, please cite the following publicati
       year = {2023},
       copyright = {arXiv.org perpetual,  non-exclusive license}
     }
+
+## Requirements
+
+This code requires a MATLAB version later than MATLAB R2019b.
+
+## Usage
+
+Readers can simply open 'Demo_Main.m' and hit the 'Run' button to follow the whole demo code.
+Readers can also run any individual section if interested by hitting the 'Run Section' button, or navigate to the foler of each section and run 'Section_X_XXXX'.
