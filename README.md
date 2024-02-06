@@ -11,9 +11,9 @@ This file illustrates the exemplary solutions of a quadrupdel system: pronking, 
 The symmetries of the solutions are also demonstrated and illustrated, as well as the solution search process.
 
 Contents:
-* **Section 1: Exemplary Solutions
-* **Section 2: Symmetry Illustrations
-* **Section 3: Solution Searching
+* **Section 1:** Exemplary Solutions
+* **Section 2:** Symmetry Illustrations
+* **Section 3:** Solution Searching
 
 Features:
 
