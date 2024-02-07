@@ -1,7 +1,5 @@
 # BreakingSymmetryLeadstoDiverseGaits
 
-![Summary](Fig/Summary.gif)
-
 ## Overview
 
 This file illustrates the exemplary solutions of a quadrupdel system: pronking, bounding, half-bounding and galloping.
@@ -31,7 +29,7 @@ This projected was initially developed at Syracuse University (Dynamic Locomotio
 
 
 
-![Fig_1_Model_Description](Fig/Model_1.png)
+![Summary](Fig/Summary.gif)
 
 ## Publications
 
