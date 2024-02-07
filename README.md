@@ -62,4 +62,7 @@ Readers can simply open 'Demo_Main.m' and hit the 'Run' button to follow the who
 
 Readers can also run any individual section if interested by hitting the 'Run Section' button, or navigate to the foler of each section and run 'Section_X_XXXX'.
 
-![Summary](Fig/Summary.gif)
+## Summary
+
+<img src="/Fig/Summary.gif" alt="Summary" width="100%" height="100%">
+
