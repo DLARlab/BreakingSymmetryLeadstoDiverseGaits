@@ -29,7 +29,6 @@ This projected was initially developed at Syracuse University (Dynamic Locomotio
 
 
 <img src="/Fig/Model_1.png" alt="Model" width="50%" height="50%">
-![Fig_1_Model_Description](Fig/Model_1.png)
 
 ## Publications
 
