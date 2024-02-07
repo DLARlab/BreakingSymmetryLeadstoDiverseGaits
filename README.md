@@ -1,5 +1,7 @@
 # BreakingSymmetryLeadstoDiverseGaits
 
+![Summary](Fig/Summary.gif)
+
 ## Overview
 
 This file illustrates the exemplary solutions of a quadrupdel system: pronking, bounding, half-bounding and galloping.
@@ -62,5 +64,3 @@ This code requires a MATLAB version later than MATLAB R2019b.
 Readers can simply open 'Demo_Main.m' and hit the 'Run' button to follow the whole demo code.
 
 Readers can also run any individual section if interested by hitting the 'Run Section' button, or navigate to the foler of each section and run 'Section_X_XXXX'.
-
-![Summary](Fig/Summary.gif)
