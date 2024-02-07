@@ -28,8 +28,8 @@ With contributions by: Zhenyu Gan, C. David Remy
 This projected was initially developed at Syracuse University (Dynamic Locomotion and Robotics Lab).
 
 
-
-![Summary](Fig/Summary.gif)
+<img src="/Fig/Model_1.png" alt="Model" width="50%" height="50%">
+![Fig_1_Model_Description](Fig/Model_1.png)
 
 ## Publications
 
@@ -62,3 +62,5 @@ This code requires a MATLAB version later than MATLAB R2019b.
 Readers can simply open 'Demo_Main.m' and hit the 'Run' button to follow the whole demo code.
 
 Readers can also run any individual section if interested by hitting the 'Run Section' button, or navigate to the foler of each section and run 'Section_X_XXXX'.
+
+![Summary](Fig/Summary.gif)
