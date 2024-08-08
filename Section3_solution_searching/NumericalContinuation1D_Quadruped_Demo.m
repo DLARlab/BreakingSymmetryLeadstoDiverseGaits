@@ -26,18 +26,9 @@ function [results,flag] = UniDirectionSearch(results, Radius, numOPTS, SaveTempS
     Para = results(23:end,1);
     ns = size(results,2);
 for k = 1:10
-       % Set special options for the stiff range
-%        if x_Current(1)>15
-%            OPTS = optimset('Algorithm','levenberg-marquardt',... 
-%                    'Display','iter',...
-%                    'MaxFunEvals',50000,...
-%                    'MaxIter',3000,...
-%                    'UseParallel', false,...
-%                    'TolFun',1e-12,...
-%                    'TolX',1e-12);
-%        else % Use the original settings
-           OPTS = numOPTS;         
-%        end
+
+       OPTS = numOPTS;         
+
        % Numerical Continuation using Prediction-Correction method: assume a new solution always exists in the neighborhood of existing solutions
        % Prediction of new solution: X(k)* = X(k-1) + (X(k-1)-X(k-2))*d
        % Prediction of the k th solution
