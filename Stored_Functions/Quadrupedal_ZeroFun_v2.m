@@ -16,7 +16,7 @@
 function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
  
     %**********************************************************************
-    % General Preparation
+    % Parameter Preparation
     %**********************************************************************
     % Define model parameters:
     M  = 1;       % Set the torso mass to be 1
@@ -29,25 +29,20 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
     osa = Para(5); % Resting angle of swing leg motion 
     
     % Asymmetrical Parameters
-    if length(Para)>5
-        lb = Para(6); % distance from COM to hip joint/length of torso
-        % lf = 1-lb;  % distance from COM to shoulder joint/length of torso
-    else
-        lb = 0.5;     % default value of COM location: center of the torso
-    end
-    
-    if length(Para)>6
-        kr = Para(7); % ratio of linear stiffness between back and front legs: kr = kb/kf, when kb+kf = 2*k;
-    else
-        kr = 1;       % default value of linear stiffness ratio set to 1(legs are identical)
-    end
-    kb = 2*k/(1+ 1/kr);
-    kf = 2*k/(1+ kr);
+    lb = Para(6); % distance from COM to hip joint/length of torso
+    kr = Para(7); % ratio of linear stiffness between back and front legs: kr = kb/kf, when kb+kf = 2*k;
+
+    kb = 2*k/(1+ 1/kr); % linear stifness of back legs
+    kf = 2*k/(1+ kr);   % linear stifness of front legs
     
     
-%     plotFlbg = 1;
-    % Extract from X-vector:
-    % Initial states
+    %**********************************************************************
+    % States Preparation: the model has 7 DOFs, 14 states in total. The
+    % initial condition also contains 8 timing variables, used to predefine
+    % the touchdown/liftoff event. The dynamics equations are selected
+    % based on the events defined.
+    %**********************************************************************
+    % Define the initial states of the integration
     N = 14; % 10 continuous states (including x)
     x0        = 0;
     dx0       = X(1); 
@@ -77,9 +72,12 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
     tFR_LO    = X(21);
     
     tAPEX     = X(22);
-     
-    % Move all timing values into [0..tAPEX]
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+    %**********************************************************************
+    % Event Timing Regulations: ensure 0 < t_i < t_APEX
+    %**********************************************************************
     tBL_TD_ = tBL_TD;
     if  tBL_TD < 0
          tBL_TD_ = tBL_TD + tAPEX;
@@ -142,28 +140,32 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
     if tFR_TD > tAPEX
          tFR_TD_ = tFR_TD - tAPEX;
     end
+
+
+
+
     %**********************************************************************
-    % Integration
+    % Integration Scheme: Chop the integration process into 8 pieces by using the event timing; the dynamic equations are determined by the timing variables
     %**********************************************************************
     % Set up start of integration:
     T_START = 0;
     Y_START = [x0, dx0, y0, dy0, phi0, dphi0,...
                alphaBL0, dalphaBL0, alphaFL0, dalphaFL0,...
                alphaBR0, dalphaBR0, alphaFR0, dalphaFR0];
-    % Integrate motion in 4 steps, which are determined by the order of the
-    % event times: 
-    % Determine this order (iEVENT(i) is the Eventnumber of the ith event)
+    % Integrate motion in 8 steps, which are determined by the order of the event times (iEVENT(i) is the Eventnumber of the ith event)
     [tEVENT,iEVENT] = sort([tBL_TD_,tBL_LO_,tFL_TD_,tFL_LO_,tBR_TD_,tBR_LO_,tFR_TD_,tFR_LO,tAPEX]);
     % Prepare output:
     T = [];
     Y = [];
     Y_EVENT = zeros(9,N);
-
+    
     for i = 1:9 %Integrate motion i/5
         % Figure out the current contact configuration (this is used in the
         % dynamics function)
         t_ = (T_START+tEVENT(i))/2;
         
+
+        % Event detection conditions: determine the dynamic equations used for integration
         if ((t_>tBL_TD_ && t_<tBL_LO_ && tBL_TD_<tBL_LO_) || ((t_<tBL_LO_ || t_>tBL_TD_) && tBL_TD_>tBL_LO_))
             contactBL = true;
         else
@@ -202,77 +204,76 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
                 if X(1) < 15
                     options = odeset('RelTol',1e-12,'AbsTol',1e-12);
                     [T_PART,Y_PART] = ode45(@ode,[T_START,tEVENT(i)],Y_START,options);
-                else
+                else % change solver conditions if the Froude number is larger than 15
                     options = odeset('RelTol',1e-13,'AbsTol',1e-13);
                     [T_PART,Y_PART] = ode45(@ode,[T_START,tEVENT(i)],Y_START,options);
-%                     [T_PART,Y_PART] = ode15s(@ode,[T_START,tEVENT(i)],Y_START,options);
                 end
             end   
         
         % Event handlers:
         if iEVENT(i)==1
-            % If this is EVENT 1, append hind leg touchdown L:
+            % If this is EVENT 1, append left hind touchdown BL:
             T_PART=[T_PART;T_PART(end)]; 
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv1 = [Y_PART(end,[1 3 5 7 9]), Y_PART(end,[1 3 5 7 9]+1), zeros(1,5), lb]';
-            Y_PART(end,8) = Func_alphaB_VA_v2(Pv1);
+            Y_PART(end,8) = Func_alphaB_VA_v2(Pv1); % velocity reset at touchdown
         end
         
         if iEVENT(i)==3
-            % If this is EVENT 3, append front leg touchdown R:
+            % If this is EVENT 3, append left front touchdown FL:
             T_PART=[T_PART;T_PART(end)];
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv2 = [Y_PART(end,[1 3 5 7 9]), Y_PART(end,[1 3 5 7 9]+1), zeros(1,5), lb]';
-            Y_PART(end,10) = Func_alphaF_VA_v2(Pv2);
+            Y_PART(end,10) = Func_alphaF_VA_v2(Pv2); % velocity reset at touchdown
         end
         
         if iEVENT(i)==5
-            % If this is EVENT 5, append hind leg touchdown L:
+            % If this is EVENT 5, append right hind touchdown BR:
             T_PART=[T_PART;T_PART(end)]; 
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv3 = [Y_PART(end,[1 3 5 11 13]), Y_PART(end,[1 3 5 11 13]+1), zeros(1,5), lb]';
-            Y_PART(end,12) = Func_alphaB_VA_v2(Pv3);
+            Y_PART(end,12) = Func_alphaB_VA_v2(Pv3); % velocity reset at touchdown
         end
         
         if iEVENT(i)==7
-            % If this is EVENT 3, append front leg touchdown R:
+            % If this is EVENT 3, append right front touchdown FR:
             T_PART=[T_PART;T_PART(end)];
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv4 = [Y_PART(end,[1 3 5 11 13]), Y_PART(end,[1 3 5 11 13]+1), zeros(1,5), lb]';
-            Y_PART(end,14) = Func_alphaF_VA_v2(Pv4);
+            Y_PART(end,14) = Func_alphaF_VA_v2(Pv4); % velocity reset at touchdown
         end
         
         
         if iEVENT(i)==2
-            % If this is EVENT 1, append hind leg touchdown L:
+            % If this is EVENT 2, append left hind liftoff BL:
             T_PART=[T_PART;T_PART(end)]; 
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv1 = [Y_PART(end,[1 3 5 7 9]), Y_PART(end,[1 3 5 7 9]+1), zeros(1,5), lb]';
-            Y_PART(end,8) = Func_alphaB_VA_v2(Pv1);
+            Y_PART(end,8) = Func_alphaB_VA_v2(Pv1); % velocity reset at leftoff
         end
         
         if iEVENT(i)==4
-            % If this is EVENT 3, append front leg touchdown R:
+            % If this is EVENT 4, append left front liftoff FL:
             T_PART=[T_PART;T_PART(end)];
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv2 = [Y_PART(end,[1 3 5 7 9]), Y_PART(end,[1 3 5 7 9]+1), zeros(1,5), lb]';
-            Y_PART(end,10) = Func_alphaF_VA_v2(Pv2);
+            Y_PART(end,10) = Func_alphaF_VA_v2(Pv2); % velocity reset at leftoff
         end
         
         if iEVENT(i)==6
-            % If this is EVENT 5, append hind leg touchdown L:
+            % If this is EVENT 6, append right hind liftoff BR:
             T_PART=[T_PART;T_PART(end)]; 
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv3 = [Y_PART(end,[1 3 5 11 13]), Y_PART(end,[1 3 5 11 13]+1), zeros(1,5), lb]';
-            Y_PART(end,12) = Func_alphaB_VA_v2(Pv3);
+            Y_PART(end,12) = Func_alphaB_VA_v2(Pv3); % velocity reset at leftoff
         end
         
         if iEVENT(i)==8
-            % If this is EVENT 3, append front leg touchdown R:
+            % If this is EVENT 8, append right front liftoff FR:
             T_PART=[T_PART;T_PART(end)];
             Y_PART=[Y_PART;Y_PART(end,:)];
             Pv4 = [Y_PART(end,[1 3 5 11 13]), Y_PART(end,[1 3 5 11 13]+1), zeros(1,5), lb]';
-            Y_PART(end,14) = Func_alphaF_VA_v2(Pv4);
+            Y_PART(end,14) = Func_alphaF_VA_v2(Pv4); % velocity reset at leftoff
         end
         
     
@@ -287,8 +288,10 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
         Y_START = Y(end,:);
     end
 
+    % Return the parameter set
     P = [tBL_TD_,tBL_LO_,tFL_TD_,tFL_LO_,tBR_TD_,tBR_LO_,tFR_TD_,tFR_LO,tAPEX,k,ks,J,l,osa,lb,kr];
     
+    % Compute ground reation force
     [GRF,GRF_X,GRF_Y] = ComputeGRF(P,Y,T);
     GRFs = [GRF GRF_X GRF_Y];
      
@@ -309,11 +312,9 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
     YAPEX  = Y_EVENT(9,:)';
     % Compute residuals
     residual = zeros(N+12,1);
+
     % Periodicity:
     residual(1:N-1) = Y(1,2:N).' - YAPEX(2:N); % x is not periodic
-% %     residual(9)  = 0;  
-% %     residual(11) = 0;  
-%     residual(1:7) = Y(1,2:8).' - YAPEX(2:8); % x is not periodic
     
          
     % At the touch-down events, the feet have to be on the ground:
@@ -330,7 +331,9 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
     residual(N+6)  = YBR_LO(3)  - lb*sin(YBR_LO(5)) - l*cos(YBR_LO(5)+YBR_LO(11));
     residual(N+7)  = YFR_LO(3)  + (1-lb)*sin(YFR_LO(5)) - l*cos(YFR_LO(5)+YFR_LO(13));
     
-    
+    %    Poincare section
+    residual(end+1) = YAPEX(4);
+
 %     % For infinite inertia
 %     residual(end+1) = YAPEX(5)-0.00;
     
@@ -357,55 +360,9 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
 %     % Diagnal legs symmetry:
 %     residual(end+1)  = YFL_TD(9) + YBR_LO(11);
 %     residual(end+1)  = abs(YBL_TD(7)) - abs(YFR_TD(13));
-
-
-%     % Half bound constrains
-%     residual(end+1)  = tFL_TD_ - tFR_TD_;
-%     residual(end+1)  = YFL_TD(9) - YFR_TD(13);
-% %     residual(end+1)  = abs(tBL_TD_-tBR_TD_)-0.06;
-%     residual(end+1)  = YBL_TD(7) + YBR_LO(11);
     
 
-%     residual(N+10)  = abs(YFL_TD(9)) - abs(YFR_TD(11));
-%     residual(N+11)  = abs(YBL_TD(7)) - abs(YBR_TD(13));
-%     residual(N+8) = YAPEX(7)  + YAPEX(9);
-%     residual(N+9) = YAPEX(11) + YAPEX(13);
-%     residual(end+1) = YBR_TD(11) - YBL_TD(7) + 0.12;
-%     residual(end+1) = YFR_TD(9) - YFL_TD(13) + 0.12;
-%     residual(end+1) = abs(tFL_TD - tBL_TD) - 0.06;
-%     residual(end+1) = YAPEX(7)  + YAPEX(13);
-%     residual(end+2) = YAPEX(9)  + YAPEX(11);
 
-%     residual(end+1) = tFL_TD - tFR_TD + 0.00 ;
-%     residual(end+1) = tBR_TD - tBL_TD - 0.00;
-%     residual(end+1) = tFL_TD - tBR_TD + 0.00;
-%     residual(end+1) = tFR_TD - tBL_TD - 0.00;
-%     residual(end+1) = tFL_TD - tBL_TD - 0.00;
-
-%     residual(end+1) = tFL_LO - tFR_LO + 0.00;
-%     residual(end+1) = tBL_LO - tBR_LO - 0.00;
-%     residual(end+1) = tFL_LO - tBR_LO + 0.00;
-%     residual(end+1) = tFR_LO - tBL_LO - 0.00;
-%     residual(end+1) = tFL_LO - tBL_LO - 0.00;
-
-%     residual(end+1) = YAPEX(2)-0.0;
-%     residual(end+1) = YAPEX(7) + YAPEX(9);
-    
-%    Poincare section
-    residual(end+1) = YAPEX(4);
-
-%     residual(end+1) = YAPEX(2);
-%      residual(end+1) = YAPEX(6);
-%     residual(end+1)  = YAPEX(3)  - lb*sin(YAPEX(5)) - l*cos(YAPEX(5)+YAPEX(7));
-    
-%     if Para(3)==Inf
-%         residual(end+1) = YAPEX(5);
-%     end
-%     tMid = round(length(Y)/2);
-%     residual(N+13:N+15) = Y(tMid,2:4).' - YAPEX(2:4);
-%     residual(N+18:N+19) = Y(tMid,7:8).' - YAPEX(11:12);
-%     residual(N+20:N+21) = Y(tMid,9:10).' - YAPEX(13:14);
-%     GRF = computeGRF(Y,T);
     %**********************************************************************
     % Dynamics Function
     %**********************************************************************
@@ -437,7 +394,7 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
         FLforce = 0;
         BRforce = 0;
         FRforce = 0;
-        
+        % force applied on each leg, compute only in contact
         if contactBL
             BLforce = (l- posB(2)/cos(alphaBL+phi))*kb;
         end
@@ -451,6 +408,7 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
             FRforce = (l- posF(2)/cos(alphaFR+phi))*kf;
         end
         
+        % Toral force and torque applied on the torso
         Fx  = -BLforce*sin(alphaBL+phi) - FLforce*sin(alphaFL+phi)...
               -BRforce*sin(alphaBR+phi) - FRforce*sin(alphaFR+phi);
         Fy  =  BLforce*cos(alphaBL+phi) + FLforce*cos(alphaFL+phi)...
@@ -463,12 +421,14 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
         ddy   = Fy-1;
         ddphi = Tor/J;
        
+
+        % Compute leg dynamics:
+
         AsvL = [x y phi alphaBL alphaFL dx dy dphi dalphaBL dalphaFL ddx ddy ddphi 0 0, lb]';  
-        % Compute leg acceleration:
-       
-        if contactBL
+    
+        if contactBL % stance dynamics
             [dalphaBL,ddalphaBL] = Func_alphaB_VA_v2(AsvL);  
-        else
+        else         % swing dynamics
             ddalphaBL = - ( Tor/J - Tor*lb*sin(alphaBL)/(J*l) ...
                          + Fx*cos(alphaBL + phi)/(M*l)...
                          + Fy*sin(alphaBL + phi)/(M*l)...
@@ -476,22 +436,22 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
                          + dphi^2*lb*cos(alphaBL)/l);                       
         end
         
-        if contactFL
+        if contactFL % stance dynamics
             [dalphaFL,ddalphaFL] = Func_alphaF_VA_v2(AsvL);
-        else
+        else         % swing dynamics
             ddalphaFL = - ( Tor/J + Tor*(1-lb)*sin(alphaFL)/(J*l)...
                          + Fx*cos(alphaFL + phi)/(M*l)...
                          + Fy*sin(alphaFL + phi)/(M*l)...
                          + alphaFL*ks/(l^2)...
                          - dphi^2*(1-lb)*cos(alphaFL)/l);
         end
-        
+
+
         AsvR = [x y phi alphaBR alphaFR dx dy dphi dalphaBR dalphaFR ddx ddy ddphi 0 0, lb]';  
-        % Compute leg angle acceleration:
-       
-        if contactBR
+     
+        if contactBR % stance dynamics
             [dalphaBR,ddalphaBR] = Func_alphaB_VA_v2(AsvR);  
-        else
+        else         % swing dynamics
             ddalphaBR = - ( Tor/J - Tor*lb*sin(alphaBR)/(J*l) ...
                          + Fx*cos(alphaBR + phi)/(M*l)...
                          + Fy*sin(alphaBR + phi)/(M*l)...
@@ -499,9 +459,9 @@ function [residual,T,Y,P,GRFs,Y_EVENT] = Quadrupedal_ZeroFun_v2(X,Para)
                          + dphi^2*lb*cos(alphaBR)/l);                       
         end
         
-        if contactFR
+        if contactFR % stance dynamics
             [dalphaFR,ddalphaFR] = Func_alphaF_VA_v2(AsvR);
-        else
+        else         % swing dynamics
             ddalphaFR = - ( Tor/J + Tor*(1-lb)*sin(alphaFR)/(J*l)...
                          + Fx*cos(alphaFR + phi)/(M*l)...
                          + Fy*sin(alphaFR + phi)/(M*l)...
